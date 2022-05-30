@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: admin
+
+  cloud:
+    config:
+      discovery:
+        service-id: ${CONFIG_SERVICE_ID:config-server}
+        enabled: true
+    inetutils:
+      ignored-interfaces:
+        - ".*"
+  thymeleaf:
+    check-template-location: false
+
+eureka:
+  client:
+    service-url:
+      defaultZone:
+        ${EUREKA_SERVERS}
+  instance:
+    prefer-ip-address: false
+
+---
+spring:
+  profiles: dev
+  boot:
+    admin:
+      ui:
+        cache:
+          no-cache: true
+        extension-resource-locations: file:@project.basedir@/../admin-ui-extensions/target/dist/
+        cache-templates: false
